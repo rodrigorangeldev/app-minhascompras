@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import { BottomNavigation, Text } from "react-native-paper";
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+import Home from "./Home";
+
 const MusicRoute = () => <Text>Music</Text>;
 
 const AlbumsRoute = () => <Text>Albums</Text>;
@@ -14,10 +16,10 @@ const Index = () => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
-      key: "music",
-      title: "Favorites",
+      key: "home",
+      title: "Home",
       focusedIcon: "home",
-      unfocusedIcon: "heart-outline",
+      unfocusedIcon: "home",
     },
     { key: "albums", title: "Albums", focusedIcon: "album" },
     { key: "recents", title: "Recents", focusedIcon: "history" },
@@ -30,7 +32,7 @@ const Index = () => {
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    music: MusicRoute,
+    home: Home,
     albums: AlbumsRoute,
     recents: RecentsRoute,
     notifications: NotificationsRoute,

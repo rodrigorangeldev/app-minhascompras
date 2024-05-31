@@ -1,18 +1,22 @@
-import * as cheerio from 'cheerio-without-node-native'
-
-
-export const scrap = async (url) => {
-    const htmlString = await loadData(url);
-    await scrapHtml(htmlString);
-}
+import { parse } from 'node-html-parser';   
 
 export const loadData = async (url) => {
     const response = await fetch(url);          // fetch page 
     const htmlString = await response.text();   // get response text
+
+    await htmlParse(htmlString);
     
     return htmlString;
 }
 
-export const scrapHtml = async (htmlString) => {
-    const $ = cheerio.load(htmlString);         // parse HTML string
+const htmlParse = async (htmlString) => {
+
+    const root = parse(htmlString);
+    let produtos = root.querySelectorAll('.txtTit');
+    produtos.forEach((value, i) => {
+        console.log('produto -> ', value.text)
+    })
+    
 }
+
+

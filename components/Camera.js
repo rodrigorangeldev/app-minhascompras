@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 
-import { scrap } from './Scrap'
+import { loadData } from './Scrap'
 
 export default function Camera(){
     const [facing, setFacing] = useState('back');
     const [permission, requestPermission] = useCameraPermissions();
+    const [scan, setScan] = useState(false);
 
     if (!permission) {
         // Camera permissions are still loading.
@@ -24,12 +25,18 @@ export default function Camera(){
     }
 
     const handleBarcodeScan = ({ type, data }) => {
-        alert(`Scanner realizado -> tipo: ${type} dados: ${data}`)
+        
+        if(data.includes('nfe.sefaz')){
+          console.log(data)
+          alert(`Scanner realizado -> tipo: ${type} dados: ${data}`)
 
         const sc = async () => {
-            const result = await scrap(data);
+          const result = await loadData(data);
         }
         sc();
+
+      }else {alert('Tipo de documento inválido.'); return false;}
+        
 
         
     }

@@ -1,6 +1,6 @@
 
 import { StyleSheet, View } from 'react-native'
-import { Surface, Text, IconButton, MD3Colors, Icon } from 'react-native-paper'
+import { Surface, Text, IconButton } from 'react-native-paper'
 
 import { useState } from 'react'
 

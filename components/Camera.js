@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 
 import { loadData } from './Scrap'
@@ -60,10 +60,47 @@ export default function Camera(){
 
 }
 
+import { Modal, Portal, Text as TX, Button as BT, PaperProvider, Paragraph } from 'react-native-paper';
+export function CameraModal(){
+    const [visible, setVisible] = useState(false);
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+    const containerStyle = {backgroundColor: 'white'};
+
+  return (
+    <PaperProvider>
+        <Portal>
+          <Modal 
+            visible={visible} 
+            onDismiss={hideModal} 
+            contentContainerStyle={styles.container} 
+          >
+            <Portal>
+              <View style={styles.container}>
+                  <Camera />
+              </View>
+            </Portal>
+          </Modal>
+            <BT style={{marginTop: 30}} onPress={showModal}>
+              Show
+            </BT>
+          </Portal>
+      </PaperProvider>
+  )
+}
+
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
+      // flex: 1,
+      // justifyContent: 'center',
+      // alignItems: 'center',
+      width: '90%',
+      height: '80%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      margin: 'auto'
+      
     },
     camera: {
       flex: 1,

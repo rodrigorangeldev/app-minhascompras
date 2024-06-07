@@ -1,12 +1,12 @@
 
 import { StyleSheet, View } from 'react-native'
-import { Surface, Text, IconButton } from 'react-native-paper'
+import { FAB } from 'react-native-paper';
 
 import { useState } from 'react'
 
-import Camera from './Camera'
+import Camera, {CameraModal} from './Camera'
 
-export default function Home(){
+export default function Home({ navigation }){
 
     const [isCamera, setIsCamera] = useState(false)
 
@@ -16,23 +16,30 @@ export default function Home(){
     }
 
     return (
-        <View> 
-            <Surface style={styles.surface} elevation={4}>
-                <IconButton 
-                    icon={!isCamera ? 'camera' : 'close-box'} 
-                    iconColor={'#000'} 
-                    size={60} 
-                    mode='contained'
-                    onPress={handleCamera}
-                />
-                <Text>Scanear QR Code</Text>
-                <View style={{width: 300, height: 300}}>
-                    { isCamera ? <Camera /> : <></>}
-                </View>
-            </Surface>
-            
-        </View>
-    )
+        
+        <FAB
+            icon="camera"
+            style={styles.fab}
+            onPress={() => navigation.navigate("Camera")}
+        />
+            // <CameraModal />
+        
+        
+        
+    //   <Surface style={styles.surface} elevation={4}>
+    //     <IconButton
+    //       icon={!isCamera ? "camera" : "close-box"}
+    //       iconColor={"#000"}
+    //       size={60}
+    //       mode="contained"
+    //       onPress={handleCamera}
+    //     />
+    //     <Text>Scanear QR Code</Text>
+    //     <View style={{ width: 300, height: 300 }}>
+    //       {isCamera ? <Camera /> : <></>}
+    //     </View>
+    //   </Surface>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -45,6 +52,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#CCC'
-    }
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+      },
 })
 

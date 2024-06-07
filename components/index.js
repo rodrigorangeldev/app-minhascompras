@@ -2,50 +2,55 @@ import React, {useState} from "react";
 import { BottomNavigation, Text } from "react-native-paper";
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+import { NavigationContainer } from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
 import Home from "./Home";
+import Camera from "./Camera";
+import ComprasRoute from "./ComprasRoute";
 
-const MusicRoute = () => <Text>Music</Text>;
 
-const AlbumsRoute = () => <Text>Albums</Text>;
+const BottomNav = ({ navigation }) =>   {
 
-const RecentsRoute = () => <Text>Recents</Text>;
-
-const NotificationsRoute = () => <Text>Notifications</Text>;
-
-const Index = () => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {
       key: "home",
       title: "Home",
       focusedIcon: "home",
-      unfocusedIcon: "home",
+      //unfocusedIcon: "home",
     },
-    { key: "albums", title: "Albums", focusedIcon: "album" },
-    { key: "recents", title: "Recents", focusedIcon: "history" },
-    {
-      key: "notifications",
-      title: "Notifications",
-      focusedIcon: "bell",
-      unfocusedIcon: "bell-outline",
-    },
+    { key: "compras", title: "Compras", focusedIcon: "album" },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     home: Home,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-    notifications: NotificationsRoute,
+    compras: ComprasRoute,
   });
-
-  return (
-    <SafeAreaProvider>
+      return( <SafeAreaProvider>
         <BottomNavigation
             navigationState={{ index, routes }}
             onIndexChange={setIndex}
             renderScene={renderScene}
         />
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+      )
+              
+}
+
+const Index = () => {
+  
+  return (
+
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName="Index">
+        <Stack.Screen name='Index' component={BottomNav}  />
+        <Stack.Screen name='Home' component={Home}  />
+        <Stack.Screen name='Camera' component={Camera}  />
+    </Stack.Navigator>
+  </NavigationContainer>  
   );
 };
 
